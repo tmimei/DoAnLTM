@@ -62,9 +62,11 @@ namespace Client_Server
             string mess = tbName.Text + ": " + tbPath.Text; // format = name: path (đường dẫn)
             byte[] data = Encoding.UTF8.GetBytes(mess);
             client.Send(data);
+            Thread receive_thr = new Thread(receive);
+            receive_thr.Start(client);
         }
 
-        void receive()
+        void receive(object obj)
         {
             Socket client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             byte[] data = new byte[1024 * 5000];

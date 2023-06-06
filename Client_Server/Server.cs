@@ -47,8 +47,8 @@ namespace Client_Server
                         clientlist.Add(client);
                         string str = "Client mới kết nối từ: " + client.RemoteEndPoint.ToString() + "\n";
                         listMess.Items.Add(new ListViewItem(str));
-                        Thread recieve_thr = new Thread(recieve);
-                        recieve_thr.Start(client);
+                        Thread receive_thr = new Thread(receive);
+                        receive_thr.Start(client);
                     }
                 }
                 catch
@@ -61,7 +61,7 @@ namespace Client_Server
             listen.Start();
         }
 
-        void recieve(object obj)
+        void receive(object obj)
         {
             Socket client = obj as Socket;
             Byte[] data = new byte[1024 * 5000];
